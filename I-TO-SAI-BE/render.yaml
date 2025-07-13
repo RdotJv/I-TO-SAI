@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: itosai-backend
+    env: java
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/I-TO-SAI-BE-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: JAVA_VERSION
+        value: 24
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: itosai-database
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: itosai-database
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: itosai-database
+          property: password
+
+databases:
+  - name: itosai-database
+    databaseName: itosai
+    user: itosai_user
+    plan: free 
