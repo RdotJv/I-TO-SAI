@@ -46,6 +46,7 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
       { credentials: "include" }
     )
       .then((res) => {
+        if (res.status === 429) throw new Error("RATE_LIMIT");
         if (!res.ok) throw new Error("AI suggestion failed");
         return res.text();
       })
@@ -53,8 +54,12 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
         setSuggestion(text);
         updateATFResponses(goal, {reason, guidance: text});
       })
-      .catch(() => {
-        setError("Failed to fetch suggestion. API error.");
+      .catch(err => {
+        if (err.message === "RATE_LIMIT") {
+          setError("Rate limit exceeded! Please try again tomorrow.");
+        } else {
+          setError("Failed to fetch suggestion. API error.");
+        }
       })
       .finally(() => setLoading(false));
   };
