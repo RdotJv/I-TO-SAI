@@ -22,6 +22,8 @@ services:
         fromDatabase:
           name: itosai-database
           property: password
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
 
 databases:
   - name: itosai-database

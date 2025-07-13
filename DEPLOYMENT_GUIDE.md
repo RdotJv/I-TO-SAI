@@ -44,12 +44,10 @@ In your backend service settings, add these environment variables:
 ```
 JAVA_VERSION=24
 OPENAI_API_KEY=your_openai_api_key_here
-DATABASE_URL=postgresql://itosai_user:password@host:port/itosai
-DB_USERNAME=itosai_user
-DB_PASSWORD=your_database_password
+SPRING_PROFILES_ACTIVE=production
 ```
 
-**Note**: Replace the DATABASE_URL with the actual connection string from your PostgreSQL database in Render.
+**Note**: The DATABASE_URL, DB_USERNAME, and DB_PASSWORD will be automatically configured by Render when you connect the database to your service.
 
 ### 1.5 Deploy
 1. Click "Create Web Service"
@@ -101,13 +99,17 @@ Then update your API calls to use this base URL.
 
 ### Common Issues:
 
-1. **CORS Errors**: The backend is configured to allow all origins. If you still get CORS errors, check that the CORS configuration is properly applied.
+1. **Database Connection Errors**: 
+   - Ensure the PostgreSQL database is created in Render before deploying the backend
+   - Check that the database is connected to your backend service in Render
+   - Verify that SPRING_PROFILES_ACTIVE=production is set
 
-2. **Database Connection**: Ensure your DATABASE_URL is correct and the database is accessible.
+2. **CORS Errors**: The backend is configured to allow all origins. If you still get CORS errors, check that the CORS configuration is properly applied.
 
 3. **Build Failures**: 
    - Check that all dependencies are in package.json (frontend) or pom.xml (backend)
    - Ensure Java 24 is available in Render
+   - Verify that the PostgreSQL dependency is in pom.xml
 
 4. **Environment Variables**: Make sure all required environment variables are set in both Vercel and Render.
 
