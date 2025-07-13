@@ -1,45 +1,41 @@
 package com.example.security_practice.confg;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
 @Configuration
+@Profile("production")
 public class DatabaseConfig {
 
     @Value("${DATABASE_URL:}")
     private String databaseUrl;
 
-    @Bean
-    @Primary
-    @ConfigurationProperties("spring.datasource")
-    public DataSourceProperties dataSourceProperties() {
-        DataSourceProperties properties = new DataSourceProperties();
-        
-        // Handle Render's DATABASE_URL format
-        if (databaseUrl != null && !databaseUrl.isEmpty()) {
-            // Convert postgresql:// to jdbc:postgresql://
-            if (databaseUrl.startsWith("postgresql://")) {
-                properties.setUrl("jdbc:" + databaseUrl);
-            } else if (databaseUrl.startsWith("jdbc:postgresql://")) {
-                properties.setUrl(databaseUrl);
-            } else {
-                // Fallback to the original URL
-                properties.setUrl(databaseUrl);
-            }
-        }
-        
-        return properties;
-    }
+    @Value("${DB_USERNAME:}")
+    private String username;
+
+    @Value("${DB_PASSWORD:}")
+    private String password;
 
     @Bean
     @Primary
-    public DataSource dataSource(DataSourceProperties properties) {
-        return properties.initializeDataSourceBuilder().build();
+    public DataSource dataSource() {
+        // Transform the URL if needed
+        String jdbcUrl = databaseUrl;
+        if (databaseUrl != null && !databaseUrl.isEmpty() && !databaseUrl.startsWith("jdbc:")) {
+            jdbcUrl = "jdbc:" + databaseUrl;
+        }
+        
+        return DataSourceBuilder.create()
+                .url(jdbcUrl)
+                .username(username)
+                .password(password)
+                .driverClassName("org.postgresql.Driver")
+                .build();
     }
 } 
