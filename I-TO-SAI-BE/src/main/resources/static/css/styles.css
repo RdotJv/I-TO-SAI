@@ -32,7 +32,6 @@ body.auth-page {
   justify-content: center;
   min-width: 350px;
 }
-
 @media (max-width: 768px) {
   .info-panel {
     width: 90%;
@@ -77,15 +76,17 @@ body.auth-page {
   color: #ed8936;
 }
 
-/* Right form panel */
+/* Right form panel: fluid height */
 .auth-container {
   background: #fff;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   flex: 1 1 350px;
   max-width: 400px;
-  max-height: 500px;
+  width: 100%;
+  /* remove any fixed or max-height to allow auto-growth */
+  height: auto;
   text-align: center;
 }
 @media (max-width: 768px) {
@@ -132,6 +133,7 @@ body.auth-page {
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.1s;
+  margin-top: 1rem;
 }
 .btn-primary:hover {
   opacity: 0.9;
@@ -158,4 +160,10 @@ body.auth-page {
 }
 .auth-switch a:hover {
   text-decoration: underline;
+}
+
+/* Extra padding for Forgot & Reset pages */
+body.forgot-page .auth-container,
+body.reset-page .auth-container {
+  padding: 3rem 2rem;
 }

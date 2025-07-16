@@ -11,6 +11,7 @@ import com.example.security_practice.repositories.ATFSuggestionRepository;
 import com.example.security_practice.repositories.DayResponseRepository;
 import com.example.security_practice.repositories.UserRepository;
 import com.example.security_practice.services.AIService;
+import com.example.security_practice.services.EmailService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

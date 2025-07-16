@@ -128,7 +128,6 @@ function App() {
         return res.json() as Promise<User>;
       })
       .then((data)=>{
-        console.log("setting user to:", data)
         setUser(data);
         const sortedPRData: DayResponse[] = sortPastResponses(data.responses)
         setPastResponses(sortedPRData);
@@ -152,7 +151,7 @@ function App() {
       }));
   }
 
-  const startDate = new Date(2025, 6, 13); //month is 0 indexed, don't panic
+  const startDate = new Date(2025, 6, 17); //month is 0 indexed, don't panic
   const today = new Date();
   const diffTime = today.getTime() - startDate.getTime();
   const dayNumber = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;

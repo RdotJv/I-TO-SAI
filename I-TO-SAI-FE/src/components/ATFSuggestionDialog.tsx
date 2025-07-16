@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
+import { Check, Copy, Loader2 } from "lucide-react";
 import type { ATFSuggestionDetail } from "@/App";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
@@ -27,6 +27,14 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const handleCopy = (index: number, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 1500);
+  };
+
 
   const fetchSuggestion = () => {
     const trimmed = reason.trim().toLowerCase();
@@ -76,7 +84,7 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl rounded-2xl border border-yellow-300 shadow-xl bg-gradient-to-br from-orange-50 via-yellow-50 to-orange-100 px-6 py-4">
+      <DialogContent className="max-w-xl rounded-2xl border border-yellow-300 shadow-xl bg-gradient-to-br from-orange-50 via-yellow-50 to-orange-100 px-6 py-4 overflow-y-scroll">
         <DialogHeader>
           <DialogTitle className="mt-5 text-orange-700 text-xl font-bold">
             Goal: <span className="text-gray-800">{goal}</span>
@@ -101,7 +109,24 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
                     Reason: "{s.reason}"
                   </AccordionTrigger>
                   <AccordionContent className="bg-white/80 p-3 border-l-4 border-orange-300 rounded-b-lg">
-                    <p className="text-gray-700 whitespace-pre-line">
+                    <div className="flex justify-between items-center mb-2">
+                    {/* <span className="text-gray-700 text-sm">Guidance</span> */}
+                      <button
+                        onClick={() => handleCopy(i, s.guidance)}
+                        className={`flex items-center text-sm transition-transform duration-200
+                                    ${copiedIndex === i ? 'text-green-600 scale-110' : 'text-orange-500 hover:text-orange-600'}`}
+                        title={copiedIndex === i ? 'Copied!' : 'Copy guidance'}
+                      >
+                        {copiedIndex === i ? (
+                          <Check className="w-4 h-4 mr-1" />
+                        ) : (
+                          <Copy className="w-4 h-4 mr-1" />
+                        )}
+                        {copiedIndex === i ? 'Copied!' : 'Copy'}
+                      </button>
+                    </div>
+
+                  <p className="text-gray-700 whitespace-pre-line">
                       {s.guidance}
                     </p>
                   </AccordionContent>
@@ -148,11 +173,11 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
           </div>
         )}
 
-        {suggestion && (
+        {/* {suggestion && (
           <div className="mt-4 bg-white/70 p-4 rounded-lg border border-orange-200 shadow-inner text-gray-700">
             <p className="whitespace-pre-line text-sm leading-relaxed">{suggestion}</p>
           </div>
-        )}
+        )} */}
         {suggestion && (
           <DialogFooter className="mt-4">
             <Button
