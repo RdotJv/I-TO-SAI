@@ -2,4 +2,8 @@ I-TO-SAI-BE/src/main/resources/application.yml
 .env
 I-TO-SAI-BE/target/
 I-TO-SAI-FE/node_modules/
+I-TO-SAI-FE/nginx.conf
 docker-compose.override.yml
+.prodenv
+.prodnginxconf
+.proddockercompose

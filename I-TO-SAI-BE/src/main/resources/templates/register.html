@@ -19,10 +19,19 @@
         </div>
     </div>
 
-    <div class="auth-container">
+    <div class="auth-container" style="max-height: 550px">
         <h2 class="auth-title">Sign Up to I to SAI</h2>
 
         <div th:if="${error}" class="message error" th:text="${error}"></div>
+        <div th:if="${param.fail_expire}" class="message error">
+            Verification link expired.
+        </div>
+        <div th:if="${param.fail_invalid}" class="message error">
+            Invalid verification link.
+        </div>
+        <div th:if="${param.sent}" class="message success">
+            Please check your email for a verification link.
+        </div>
 
         <form th:action="@{/register}" method="post" class="auth-form">
             <input type="hidden"
@@ -41,6 +50,9 @@
             <button type="submit" class="btn-primary">Sign Up</button>
         </form>
 
+        <p class="auth-switch">
+            <a th:href="@{/forgot-password}">Forgot your password?</a>
+        </p>
         <p class="auth-switch">
             Already have an account? <a th:href="@{/login}">Log in here</a>
         </p>

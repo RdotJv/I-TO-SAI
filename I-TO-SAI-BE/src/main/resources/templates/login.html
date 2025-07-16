@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="auth-container" style="max-height: 400px">
+    <div class="auth-container" style="max-height: 460px">
         <h2 class="auth-title">Log In to I to SAI</h2>
 
         <div th:if="${param.error}" class="message error">
@@ -27,6 +27,14 @@
         </div>
         <div th:if="${param.logout}" class="message success">
             You have been logged out.
+        </div>
+
+        <div th:if="${param.registered}" class="message success">
+            Registration successful—please log in.
+        </div>
+
+        <div th:if="${param.resetSuccess}" class="message success">
+            Password reset successful—please log in.
         </div>
 
         <form th:action="@{/perform_login}" th:method="post" class="auth-form">
@@ -50,12 +58,11 @@
         </form>
 
         <p class="auth-switch">
+            <a th:href="@{/forgot-password}">Forgot your password?</a>
+        </p>
+        <p class="auth-switch">
             Don’t have an account? <a th:href="@{/register}">Register here</a>
         </p>
-
-        <div th:if="${param.registered}" class="message success">
-            Registration successful—please log in.
-        </div>
     </div>
 </div>
 </body>

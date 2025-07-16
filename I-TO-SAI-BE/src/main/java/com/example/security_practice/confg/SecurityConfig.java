@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf->csrf.ignoringRequestMatchers("/api/submitDailyResponse"))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**", "/js/**", "/register").permitAll()
+                        .requestMatchers("/login", "/css/**", "/js/**", "/register", "/verify-email", "/forgot-password", "/reset-password").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

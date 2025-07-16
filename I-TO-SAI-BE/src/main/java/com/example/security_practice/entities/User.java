@@ -25,6 +25,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    private boolean enabled;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "user_roles",

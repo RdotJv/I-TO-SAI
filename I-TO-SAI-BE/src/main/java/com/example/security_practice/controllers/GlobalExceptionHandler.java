@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO> handleAll(Exception ex) {
-        System.err.println("Unhandled exception in controller"+ ex.toString());
+        System.err.println("\n\n\nUnhandled exception in controller"+ ex.toString()+"\n\n\n");
         ErrorResponseDTO body = new ErrorResponseDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
