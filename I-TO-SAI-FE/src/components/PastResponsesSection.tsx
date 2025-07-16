@@ -7,19 +7,35 @@ import { PastResponse } from "./PastResponse";
 interface Props {
   pastResponses: DayResponse[];
 }
+const PAGE_SIZE = 10;
 
 export const PastResponsesSection = ({ pastResponses }: Props) => {
-  const [visibleCount, setVisibleCount] = useState(10);
+  // const [visibleCount, setVisibleCount] = useState(10);
 
-  const visibleResponses = pastResponses.slice(0, visibleCount);
+  // const visibleResponses = pastResponses.slice(0, visibleCount);
 
-  const handleShowMore = () => {
-    setVisibleCount((c) => Math.min(c + 10, pastResponses.length));
+  // const handleShowMore = () => {
+  //   setVisibleCount((c) => Math.min(c + 10, pastResponses.length));
+  // };
+
+  // const handleShowLess = () => {
+  //   setVisibleCount(10);
+  // };
+  const [pageIndex, setPageIndex] = useState(0);
+  const totalPages = Math.ceil(pastResponses.length / PAGE_SIZE);
+
+  const start = pageIndex * PAGE_SIZE;
+  const end = Math.min(start + PAGE_SIZE, pastResponses.length);
+  const visibleResponses = pastResponses.slice(start, end);
+
+  const handleNext = () => {
+    setPageIndex((i) => Math.min(i + 1, totalPages - 1));
   };
 
-  const handleShowLess = () => {
-    setVisibleCount(10);
+  const handlePrev = () => {
+    setPageIndex((i) => Math.max(i - 1, 0));
   };
+
 
   return (
     <div className={`w-1/2 ${pastResponses.length === 0 ? "mr-40" : "mr-20"}`}>
@@ -46,7 +62,7 @@ export const PastResponsesSection = ({ pastResponses }: Props) => {
             ))}
           </Accordion>
 
-          <div className="flex justify-center space-x-4 mt-4">
+          {/* <div className="flex justify-center space-x-4 mt-4">
             {visibleCount < pastResponses.length && (
               <button
                 onClick={handleShowMore}
@@ -73,6 +89,35 @@ export const PastResponsesSection = ({ pastResponses }: Props) => {
                 Show less
               </button>
             )}
+          </div> */}
+          <div className="flex flex-col items-center justify-center mt-4">
+          <div className="flex items-center justify-center space-x-4">
+            <button
+              onClick={handlePrev}
+              disabled={pageIndex === 0}
+              className={`px-4 py-2 font-semibold text-white rounded-xl transition-shadow shadow-md
+                bg-gradient-to-r from-orange-400 to-orange-500
+                hover:from-orange-500 hover:to-orange-600
+                ${pageIndex === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+            >
+              Prev
+            </button>
+
+            <button
+              onClick={handleNext}
+              disabled={pageIndex >= totalPages - 1}
+              className={`px-4 py-2 font-semibold text-white rounded-xl transition-shadow shadow-md
+                bg-gradient-to-r from-yellow-400 to-yellow-500
+                hover:from-yellow-500 hover:to-yellow-600
+                ${pageIndex >= totalPages - 1 ? "opacity-50 cursor-not-allowed" : ""}`}
+            >
+              Next
+            </button>
+          </div>
+            <span className="text-gray-500 font-medium">
+              {start + 1}–{end} of {pastResponses.length}
+            </span>
+
           </div>
         </>
       )}

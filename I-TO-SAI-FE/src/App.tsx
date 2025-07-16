@@ -257,7 +257,7 @@ function App() {
 
         </header>
 
-        <main className="flex-grow relative z-0">
+        <main className={`flex-grow relative z-0 ${!pastResponses.length && 'pb-36'}`}>
           {/* {user && <section className="relative h-0">
             <div
               className="absolute ml-4 mt-5 text-sm text-gray-700 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-md shadow z-10 opacity-80"
