@@ -84,7 +84,21 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-xl rounded-2xl border border-yellow-300 shadow-xl bg-gradient-to-br from-orange-50 via-yellow-50 to-orange-100 px-6 py-4 overflow-y-scroll">
+      <DialogContent 
+        className="
+          max-w-xl 
+          max-h-[90vh]   
+          overflow-y-auto
+          rounded-2xl 
+          border 
+          border-yellow-300 
+          shadow-xl 
+          bg-gradient-to-br 
+          from-orange-50 
+          via-yellow-50 
+          to-orange-100 
+          px-6 
+          py-4">
         <DialogHeader>
           <DialogTitle className="mt-5 text-orange-700 text-xl font-bold">
             Goal: <span className="text-gray-800">{goal}</span>
@@ -173,11 +187,11 @@ export function ATFSuggestionDialog({ goal, pastSuggestions, open, onOpenChange,
           </div>
         )}
 
-        {/* {suggestion && (
+        {suggestion && (
           <div className="mt-4 bg-white/70 p-4 rounded-lg border border-orange-200 shadow-inner text-gray-700">
             <p className="whitespace-pre-line text-sm leading-relaxed">{suggestion}</p>
           </div>
-        )} */}
+        )}
         {suggestion && (
           <DialogFooter className="mt-4">
             <Button
