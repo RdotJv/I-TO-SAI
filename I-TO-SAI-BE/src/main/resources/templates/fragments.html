@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="siteHeader" class="site-header">
+    <div class="logo-container">
+        <img src="/YORK-LOGO.png" alt="York Logo" />
+    </div>
+    <div class="logo-container">
+        <img src="/I-TO-SAI-LOGO.png" alt="I to SAI Logo" />
+    </div>
+    <div class="logo-container">
+        <img src="/SAI100-LOGO.png" alt="SAI100 Logo" />
+    </div>
+    <nav class="site-nav">
+        <div class="site-nav-actions">
+            <a href="/register" class="btn-signup">Sign Up</a>
+            <a href="/login"    class="btn-login">Login</a>
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="siteFooter" class="site-footer">
+    <p>
+        I to SAI ©
+        <span th:text="${#dates.format(#dates.createNow(),'yyyy')}">2025</span>
+    </p>
+    <p>• Sri Sathya Sai Baba Centre of Toronto York •</p>
+    <p style="font-size:x-small; color: gainsboro;">Developed and Maintained By Ram Jenab Zadeh</p>
+</div>
+</body>
+</html>

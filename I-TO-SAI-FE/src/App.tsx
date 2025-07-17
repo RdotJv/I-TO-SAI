@@ -185,8 +185,8 @@ function App() {
     <div className="relative min-h-screen flex flex-col overflow-x-hidden">
       <div className="absolute inset-0">
         <img
-          src="/2.png"
-          alt=""
+          src="/YORK-STUPA.png"
+          alt="York Stupa"
           className="
             absolute inset-y-0
             h-full 
@@ -206,21 +206,21 @@ function App() {
         <header className="grid grid-cols-4 items-center p-2 bg-gradient-to-br from-orange-50 via-orange-50 to-yellow-50 shadow-lg">
           <div className="flex items-center">
             <img 
-              src="/logo2.png" 
+              src="/YORK-LOGO.png" 
               alt="York Logo" 
               className="h-30 w-auto object-contain" 
             />
           </div>
           <div className="flex items-center justify-center text-center">
             <img 
-              src="/1.png" 
+              src="/I-TO-SAI-LOGO.png" 
               alt="I to SAI Logo" 
               className="h-20 w-auto object-contain" 
             />
           </div>
           <div className="ml-4 flex flex-col items-start">
             <img 
-              src="/logo.png" 
+              src="/SAI100-LOGO.png" 
               alt="SAI100 Logo" 
               className="h-15 w-auto object-contain" 
             />
@@ -495,6 +495,7 @@ function App() {
             <p>
               • Sri Sathya Sai Baba Centre of Toronto York •
             </p>
+            <p className="text-xs text-gray-200 mt-3">Developed and Maintained by Ram Jenab Zadeh</p>
         </div>
         </footer>
       </div>
