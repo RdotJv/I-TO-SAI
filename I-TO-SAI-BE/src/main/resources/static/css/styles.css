@@ -4,10 +4,11 @@ body.auth-page {
   font-family: 'Segoe UI', Tahoma, sans-serif;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;      /* stack children vertically */
+  align-items: stretch;        /* let header + footer fill full width */
   background: linear-gradient(135deg, #fdba74 0%, #fefcbf 50%, #faf089 100%);
   color: #333;
+  margin: 0;
 }
 
 .auth-page-grid {
@@ -15,7 +16,7 @@ body.auth-page {
   flex-wrap: wrap;
   width: 100%;
   max-width: 900px;
-  margin: auto;
+  margin: 2rem auto;
   gap: 2rem;
 }
 @media (max-width: 768px) {
@@ -23,6 +24,10 @@ body.auth-page {
     flex-direction: column;
     align-items: center;
   }
+}
+
+body.auth-page > .site-footer {
+  margin-top: auto;
 }
 
 .info-panel {
@@ -166,4 +171,90 @@ body.auth-page {
 body.forgot-page .auth-container,
 body.reset-page .auth-container {
   padding: 3rem 2rem;
+}
+
+/*————————————————————————————————————————————
+  Site header & footer
+————————————————————————————————————————————*/
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(
+      135deg,
+      #fff7ed 0%,
+      #fff7ed 50%,
+      #fefce8 100%
+    );
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.site-header .logo-container {
+  flex: 1;
+}
+.site-header .logo-container img {
+  max-height: 60px;
+  object-fit: contain;
+}
+.site-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.site-nav-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.site-nav-actions a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-signup {
+  background: linear-gradient(to right, #f6ad55, #ecc94b);
+}
+.btn-login {
+  background: linear-gradient(to right, #ed8936, #dd6b20);
+}
+.site-nav-actions a:hover {
+  opacity: 0.9;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  background: linear-gradient(
+    90deg,
+    #ed8936 0%,
+    #f6ad55 50%,
+    #ecc94b 100%
+  );
+  color: #fff;
+  font-weight: 700;
+}
+.site-footer p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  margin: 2srem 0;
+}
+
+/* “Laptop” and up: shrink margin to 1rem */
+@media (min-width: 1024px) {
+  .centered-container {
+    margin: 1rem 0;
+  }
 }
