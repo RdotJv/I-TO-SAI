@@ -11,9 +11,6 @@ services:
       MYSQL_USER:     ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      MYSQL_DATABASE: sss_york_gp_users
-#      MYSQL_USER: app_user
-#      MYSQL_PASSWORD: AppUserPass123!
     volumes:
       - db_data:/var/lib/mysql
     ports:
@@ -30,9 +27,6 @@ services:
       SPRING_DATASOURCE_URL:      ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-#      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sss_york_gp_users?useSSL=false&allowPublicKeyRetrieval=true
-#      SPRING_DATASOURCE_USERNAME: app_user
-#      SPRING_DATASOURCE_PASSWORD: AppUserPass123!
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_APP_PASSWORD: ${MAIL_APP_PASSWORD}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
@@ -40,8 +34,6 @@ services:
       LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: TRACE
     depends_on:
       - db
-#    ports: #commented out so it's only available locally, not exposed on host
-#      - "8080:8080"
 
   frontend:
     build:
@@ -51,8 +43,16 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+
+    volumes:
+      - /home/ubuntu/letsencrypt:/etc/letsencrypt:ro
+      - /home/ubuntu/certbot:/var/www/certbot
+      - ./I-TO-SAI-FE/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
     ports:
       - "80:80"
+      - "443:443"
 
 volumes:
   db_data:
+
