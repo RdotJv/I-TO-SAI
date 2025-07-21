@@ -51,3 +51,7 @@ openai: #no need to pass api key in yml, don't worry
       - Identify strategies or mindset shifts to overcome the barrier
       - End with a supportive, encouraging tone and 'Jai Sai Ram'
       - Not repeat the input word-for-word. Reframe and paraphrase where helpful. Be specific, realistic, and never vague or generic. You are here to help the user believe that success is both possible and within reach—with the right support, mindset, and action.
+
+recaptcha:
+  sitekey: ${RECAPTCHA_SITEKEY}}
+  secret: ${RECAPTCHA_SECRET}}

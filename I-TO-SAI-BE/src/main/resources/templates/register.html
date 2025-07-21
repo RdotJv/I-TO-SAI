@@ -4,6 +4,10 @@
     <meta charset="UTF-8"/>
     <title>I to SAI — Sign Up</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script
+            src="https://www.google.com/recaptcha/api.js"
+            async defer>
+    </script>
 </head>
 <body class="auth-page">
 <div th:replace="fragments :: siteHeader"></div>
@@ -21,7 +25,7 @@
             </div>
         </div>
 
-        <div class="auth-container" style="max-height: 550px">
+        <div class="auth-container" style="max-height: 640px">
             <h2 class="auth-title">Sign Up to I to SAI</h2>
 
             <div th:if="${error}" class="message error" th:text="${error}"></div>
@@ -49,6 +53,10 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required />
 
+                <div
+                        class="g-recaptcha"
+                        th:attr="data-sitekey=${siteKey}">
+                </div>
                 <button type="submit" class="btn-primary">Sign Up</button>
             </form>
 
