@@ -4,6 +4,10 @@
     <meta charset="UTF-8"/>
     <title>I to SAI — Sign Up</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script
+            src="https://www.google.com/recaptcha/api.js"
+            async defer>
+    </script>
 </head>
 <body class="auth-page">
 <div th:replace="fragments :: siteHeader"></div>
@@ -49,6 +53,10 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required />
 
+                <div
+                        class="g-recaptcha"
+                        th:attr="data-sitekey=${siteKey}">
+                </div>
                 <button type="submit" class="btn-primary">Sign Up</button>
             </form>
 

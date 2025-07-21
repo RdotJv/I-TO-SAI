@@ -3,7 +3,7 @@ version: "3.8"
 services:
   db:
     image: mysql:8.0
-    container_name: sss_db
+    container_name: sss_db_prod
     restart: unless-stopped
     env_file: .env
     environment:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./I-TO-SAI-BE
       dockerfile: Dockerfile
-    container_name: sss_backend
+    container_name: sss_backend_prod
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: prod
@@ -39,7 +39,7 @@ services:
     build:
       context: ./I-TO-SAI-FE
       dockerfile: Dockerfile
-    container_name: sss_frontend
+    container_name: sss_frontend_prod
     restart: unless-stopped
     depends_on:
       - backend

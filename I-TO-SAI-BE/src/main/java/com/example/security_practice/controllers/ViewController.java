@@ -4,8 +4,11 @@ import com.example.security_practice.entities.EmailVerificationToken;
 import com.example.security_practice.entities.User;
 import com.example.security_practice.repositories.EmailVerificationTokenRepository;
 import com.example.security_practice.repositories.UserRepository;
+import com.example.security_practice.services.RecaptchaService;
 import com.example.security_practice.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,10 @@ public class ViewController {
     private final UserService userService;
     private final EmailVerificationTokenRepository emailVerificationTokenRepo;
     private final UserRepository userRepo;
+    private final RecaptchaService recaptchaService;
+
+    @Value("${recaptcha.sitekey}")
+    private String siteKey;
 
     @GetMapping("/login")
     public String login() {
@@ -31,7 +38,8 @@ public class ViewController {
         return "home";
     }
     @GetMapping("/register")
-    public String showForm() {
+    public String showForm(Model model) {
+        model.addAttribute("siteKey", siteKey);
         return "register";
     }
 
@@ -62,8 +70,16 @@ public class ViewController {
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String email,
+            @RequestParam("g-recaptcha-response") String captchaToken,
+            HttpServletRequest request,
             Model model
     ) {
+        String clientIp = request.getRemoteAddr();
+        if (!recaptchaService.verify(captchaToken, clientIp)) {
+            model.addAttribute("error", "CAPTCHA verification failed. Please try again.");
+            model.addAttribute("siteKey", siteKey);
+            return "register";
+        }
         try {
             userService.register(username, password, email);
             return "redirect:/register?sent";

@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 public class AIConfig {
     @Bean
     public OpenAIClient openAIClient() { //OPENAI_API_KEY added in env. used automatically here. OPENAI_BASE_URL by default set to "https://api.openai.com/v1"
-//        System.out.println(System.getenv("OPENAI_API_KEY"));
         return OpenAIOkHttpClient.fromEnv();
     }
 

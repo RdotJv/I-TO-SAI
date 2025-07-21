@@ -107,9 +107,7 @@ public class UserController {
         ATFSuggestion suggestion = new ATFSuggestion();
         suggestion.setUser(user);
         suggestion.setGoal(goal);
-        System.out.println("\n\n\ngoal:"+ goal+"\n\n\n");
         suggestion.setReason(reason);
-        System.out.println("\n\n\nreason:"+ reason+"\n\n\n");
         suggestion.setGuidance(guidance);
         atfSuggestionRepo.save(suggestion);
 
